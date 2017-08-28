@@ -1,7 +1,7 @@
 const db = require('./db')
 
 const addBook = (title, author, genre) => {
-  return db.query(`
+  return db.oneOrNone(`
     INSERT INTO book
       (title, author, genre)
     VALUES
@@ -16,11 +16,11 @@ const getAllBooks = () => {
 }
 
 const getBook = (id) => {
-  return db.query(`SELECT * FROM book WHERE id=$1`, id)
+  return db.oneOrNone(`SELECT * FROM book WHERE id=$1`, id)
   .catch(error => console.log(error))
 }
 
-const editBook = (id, title, author, genre) => {
+const editBook = (id, newBookInfo) => {
   return db.query(`
     UPDATE
       book
@@ -28,7 +28,7 @@ const editBook = (id, title, author, genre) => {
       title=$2, author=$3, genre=$4
     WHERE id=$1
     `,
-    [id, title, author, genre])
+    [id, newBookInfo.title, newBookInfo.author, newBookInfo.genre])
   .catch(error => console.log(error))
 }
 
