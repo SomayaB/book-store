@@ -1,7 +1,7 @@
 const db = require('./db')
 
 const addBook = (title, author, genre) => {
-  db.query(`
+  return db.query(`
     INSERT INTO book
       (title, author, genre)
     VALUES
@@ -11,21 +11,17 @@ const addBook = (title, author, genre) => {
 }
 
 const getAllBooks = () => {
-  db.query(`SELECT * FROM book`)
+  return db.query(`SELECT * FROM book`)
   .catch(error => console.log(error))
 }
 
-const getBook = (bookInfo) => {
-  db.query(`
-    SELECT * FROM book
-    WHERE title=$1 OR author=$1 OR genre=$1
-    `,
-     bookInfo)
+const getBook = (id) => {
+  return db.query(`SELECT * FROM book WHERE id=$1`, id)
   .catch(error => console.log(error))
 }
 
 const editBook = (id, title, author, genre) => {
-  db.query(`
+  return db.query(`
     UPDATE
       book
     SET
@@ -37,6 +33,29 @@ const editBook = (id, title, author, genre) => {
 }
 
 const deleteBook = (id) => {
-  db.query(`DELETE FROM book WHERE id=$1`, id)
+  return db.query(`DELETE FROM book WHERE id=$1`, id)
   .catch(error => console.log(error))
+}
+
+const searchForBook = (bookInfo) => {
+  return db.query(`
+    SELECT * FROM
+      book
+    WHERE
+      lower(title, author, genre)
+    LIKE
+      $1
+    `,
+  `%${bookInfo.toLowerCase.replace(/\s+/,'%')}%`)
+  .catch(error => console.log(error))
+}
+
+
+module.exports = {
+  addBook,
+  getAllBooks,
+  getBook,
+  editBook,
+  deleteBook,
+  searchForBook
 }
