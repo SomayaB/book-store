@@ -7,7 +7,7 @@ router.get('/new', (request, response) => {
 })
 
 
-router.get('/', (request, response) {
+router.get('/', (request, response) => {
   Books.getAllBooks()
   .then(books => {
     response.render('books/index')

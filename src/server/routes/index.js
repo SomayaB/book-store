@@ -4,8 +4,8 @@ const booksRoutes = require('./books')
 
 router.use('/books', booksRoutes)
 
-router.get('/', (request, response) {
-  response.redirect('books/index')
+router.get('/', (request, response) => {
+  response.redirect('books/')
 })
 
 module.exports = router
