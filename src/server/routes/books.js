@@ -10,7 +10,7 @@ router.get('/new', (request, response) => {
 router.get('/', (request, response) => {
   Books.getAllBooks()
   .then(books => {
-    response.render('books/index')
+    response.render('books/index', {books})
   })
   .catch(error => {
     console.log(error)
