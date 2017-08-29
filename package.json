@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "db:reset": "dropdb bookstore_development; createdb bookstore_development; psql bookstore_development < load-data.sql" 
+    "start": "nodemon src/server.js",
+    "db:reset": "dropdb bookstore_development; createdb bookstore_development; psql bookstore_development < src/models/db/schema/schema.sql; psql bookstore_development < src/models/db/schema/load-data.sql"
   },
   "repository": {
     "type": "git",
