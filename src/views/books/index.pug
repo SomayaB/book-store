@@ -1,0 +1,7 @@
+extends /partials/layout
+
+block content
+  ul
+    each book in books
+      a(href='/books/' + book.id)
+        li=book.title
