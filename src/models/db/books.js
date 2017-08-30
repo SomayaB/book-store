@@ -1,24 +1,24 @@
-const db = require('./db')
+const db = require('./db');
 
-const addBook = (title, author, genre) => {
+const addBook = (bookInfo) => {
   return db.oneOrNone(`
     INSERT INTO book
       (title, author, genre)
     VALUES
       ($1, $2, $3) RETURNING id
-      `, [title, author, genre])
-    .catch(error => console.log(error))
-}
+      `, [bookInfo.title, bookInfo.author, bookInfo.genre])
+    .catch(error => console.log(error));
+};
 
 const getAllBooks = () => {
-  return db.query(`SELECT * FROM book`)
-  .catch(error => console.log(error))
-}
+  return db.query(`SELECT * FROM book ORDER BY id`)
+  .catch(error => console.log(error));
+};
 
 const getBook = (id) => {
   return db.oneOrNone(`SELECT * FROM book WHERE id=$1`, id)
-  .catch(error => console.log(error))
-}
+  .catch(error => console.log(error));
+};
 
 const editBook = (id, newBookInfo) => {
   return db.query(`
@@ -29,13 +29,13 @@ const editBook = (id, newBookInfo) => {
     WHERE id=$1
     `,
     [id, newBookInfo.title, newBookInfo.author, newBookInfo.genre])
-  .catch(error => console.log(error))
-}
+  .catch(error => console.log(error));
+};
 
 const deleteBook = (id) => {
   return db.query(`DELETE FROM book WHERE id=$1`, id)
-  .catch(error => console.log(error))
-}
+  .catch(error => console.log(error));
+};
 
 const searchForBook = (bookInfo) => {
   return db.query(`
@@ -47,8 +47,8 @@ const searchForBook = (bookInfo) => {
       $1
     `,
   `%${bookInfo.toLowerCase.replace(/\s+/,'%')}%`)
-  .catch(error => console.log(error))
-}
+  .catch(error => console.log(error));
+};
 
 
 module.exports = {
@@ -58,4 +58,4 @@ module.exports = {
   editBook,
   deleteBook,
   searchForBook
-}
+};
