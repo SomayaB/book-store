@@ -8,7 +8,7 @@ const app = express()
 
 //Views
 app.set('view engine', 'pug')
-app.set('views', [__dirname + '/views', __dirname + '/views/books'])
+app.set('views', __dirname + '/views')
 app.locals.basedir = path.join(__dirname, '/views')
 
 //Public

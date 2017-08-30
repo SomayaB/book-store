@@ -1,11 +1,11 @@
-const router = require('express').Router()
-const Books = require('../../models/books') //why capitalized???
-const booksRoutes = require('./books')
+const router = require('express').Router();
+const books = require('../../models/books');
+const booksRoutes = require('./books');
 
-router.use('/books', booksRoutes)
+router.use('/books', booksRoutes);
 
 router.get('/', (request, response) => {
-  response.redirect('books/')
-})
+  response.redirect('books/');
+});
 
-module.exports = router
+module.exports = router;
