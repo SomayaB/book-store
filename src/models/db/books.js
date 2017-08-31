@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const addBook = (bookInfo) => {
+const add = (bookInfo) => {
   return db.oneOrNone(`
     INSERT INTO book
       (title, author, genre)
@@ -10,17 +10,17 @@ const addBook = (bookInfo) => {
     .catch(error => console.log(error));
 };
 
-const getAllBooks = () => {
+const getAll = () => {
   return db.query(`SELECT * FROM book ORDER BY id`)
   .catch(error => console.log(error));
 };
 
-const getBook = (id) => {
+const getById = (id) => {
   return db.oneOrNone(`SELECT * FROM book WHERE id=$1`, id)
   .catch(error => console.log(error));
 };
 
-const editBook = (id, newBookInfo) => {
+const update = (id, newBookInfo) => {
   return db.query(`
     UPDATE
       book
@@ -32,12 +32,12 @@ const editBook = (id, newBookInfo) => {
   .catch(error => console.log(error));
 };
 
-const deleteBook = (id) => {
+const deleteById = (id) => {
   return db.query(`DELETE FROM book WHERE id=$1`, id)
   .catch(error => console.log(error));
 };
 
-const searchForBook = (bookInfo) => {
+const searchByColumn = (bookInfo) => {
   const searchQuery = `%${bookInfo.toLowerCase().replace(/\s+/,'%')}%`;
   return db.query(`
     SELECT * FROM
@@ -68,10 +68,10 @@ const searchForBook = (bookInfo) => {
 };
 
 module.exports = {
-  addBook,
-  getAllBooks,
-  getBook,
-  editBook,
-  deleteBook,
-  searchForBook
+  add,
+  getAll,
+  getById,
+  update,
+  deleteById,
+  searchByColumn
 };

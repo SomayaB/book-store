@@ -1,34 +1,34 @@
 const db = require('./db/books');
 
-const addBook = (title, author, genre) => {
-  return db.addBook(title, author, genre);
+const add = (title, author, genre) => {
+  return db.add(title, author, genre);
 };
 
-const getAllBooks = () => {
-  return db.getAllBooks();
+const getAll = () => {
+  return db.getAll();
 };
 
-const getBook = (bookInfo) => {
-  return db.getBook(bookInfo);
+const getById = (bookInfo) => {
+  return db.getById(bookInfo);
 };
 
-const editBook = (id, title, author, genre) => {
-  return db.editBook(id, title, author, genre);
+const update = (id, title, author, genre) => {
+  return db.update(id, title, author, genre);
 };
 
-const deleteBook = (id) => {
-  return db.deleteBook(id);
+const deleteById = (id) => {
+  return db.deleteById(id);
 };
 
-const searchForBook = (bookInfo) => {
-  return db.searchForBook(bookInfo);
+const search = (bookInfo) => {
+  return db.searchByColumn(bookInfo);
 };
 
 module.exports = {
-  addBook,
-  getAllBooks,
-  getBook,
-  editBook,
-  deleteBook,
-  searchForBook
+  add,
+  getAll,
+  getById,
+  update,
+  deleteById,
+  search
 };

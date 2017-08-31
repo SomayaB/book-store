@@ -4,3 +4,18 @@ block content
   ul.flex.flex-full.flex-column
     each book in books
       li: a(href='/books/' + book.id) #{book.title}
+  if pageCount > 1
+    ul
+      if currentPage > 1
+        li: a(href='/books/') &laquo;
+      - for (var i = 1; i <= pageCount; i++) {
+        if currentPage == i
+          li #{i}
+        else  
+          li: a(href='/books/?page=' + i) #{i}
+      - }    
+      if currentPage !== pageCount
+        li: a(href='/books/?page=' + pageCount) &raquo;
+          
+                
+       
