@@ -2,9 +2,31 @@ const router = require('express').Router();
 const books = require('../../models/books');
 
 router.get('/', (request, response) => {
-  books.getAllBooks()
+  books.getAll()
   .then(books => {
-    response.render('books/index', {books});
+    const bookLimit = 10
+    const pageCount = Math.floor(books.length/bookLimit)
+    let currentPage = 1
+    const booksGroupedByLimit = []
+    let bookList = []
+
+    while (books.length > 0) {
+      booksGroupedByLimit.push(books.splice(0, bookLimit))
+    }
+
+    if (typeof request.query.page !== 'undefined') {
+      currentPage = +request.query.page
+    }
+
+    bookList = booksGroupedByLimit[+currentPage - 1]
+
+    response.render('books/index', {
+      books: bookList,
+      bookLimit: bookLimit,
+      totalBooks: books.length,
+      pageCount: pageCount,
+      currentPage: currentPage
+    })
   })
   .catch(error => {
     console.log(error);
@@ -15,9 +37,9 @@ router.get('/new', (request, response) => {
   response.render('books/new');
 });
 
-router.post('/new', (request, response) => {
+router.post('/', (request, response) => {
   const bookInfo = request.body;
-  books.addBook(bookInfo)
+  books.add(bookInfo)
   .then(newBook => {
     if(newBook) {
       response.redirect(`/books/${newBook.id}`);
@@ -30,7 +52,7 @@ router.post('/new', (request, response) => {
 
 router.get('/search', (request, response) => {
   const searchTerms = request.query.searchTerms;
-  books.searchForBook(searchTerms)
+  books.search(searchTerms)
   .then(matchingBooks => {
     response.render('books/search', {matchingBooks});
   })
@@ -42,7 +64,7 @@ router.get('/search', (request, response) => {
 //TODO Limit Number of Routes
 router.get('/:bookId', (request, response) => {
   const id = request.params.bookId;
-  books.getBook(id)
+  books.getById(id)
   .then(book => {
     response.render(`books/show`, {book});
   })
@@ -54,7 +76,7 @@ router.get('/:bookId', (request, response) => {
 router.put('/:bookId', (request, response) => {
   const id = request.params.bookId;
   const newBookInfo = request.body;
-  books.editBook(id, newBookInfo)
+  books.update(id, newBookInfo)
   .then(updatedBook => {
     response.redirect(`/books/${id}`);
   })
@@ -65,7 +87,7 @@ router.put('/:bookId', (request, response) => {
 
 router.delete('/:bookId', (request, response) => {
   const id = request.params.bookId;
-  books.deleteBook(id)
+  books.deleteById(id)
   .then(() => {
     response.redirect('/books');
   })
