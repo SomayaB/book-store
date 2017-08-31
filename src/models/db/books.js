@@ -39,7 +39,7 @@ const deleteBook = (id) => {
 
 const searchForBook = (bookInfo) => {
   console.log("This is Book Info", bookInfo);
-  const searchQuery = `'%${bookInfo.toLowerCase()}%'`
+  const searchQuery = `%${bookInfo.toLowerCase().replace(/\s+/,'%')}%`;
   return db.query(`
     SELECT * FROM
       book
@@ -47,11 +47,12 @@ const searchForBook = (bookInfo) => {
       lower(title)
     LIKE
       $1
+    ORDER BY
+      id
     `,
   [searchQuery])
   .catch(error => console.log(error));
 };
-// .replace(/\s+/,'%')
 
 module.exports = {
   addBook,

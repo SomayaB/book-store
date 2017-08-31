@@ -1,7 +1,7 @@
 extends /partials/layout
 
 block content
-  div.book-display
+  div.book-display.flex-full
     ul
       li=book.title
       li=book.author
@@ -9,7 +9,7 @@ block content
       button.edit-btn Edit
       form(action=`/books/${book.id}?_method=DELETE`, method="POST")
         button.delete-btn Delete
-  div.edit-form
+  div.edit-form.flex-full
     form(action=`/books/${book.id}?_method=PUT`, method="POST")
       label Title
         input(type="text", name="title", value=`${book.title}`)
