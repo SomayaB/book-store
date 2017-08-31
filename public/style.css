@@ -1,3 +1,33 @@
+html {
+  background-color: rgb(119, 5, 138);
+}
+
+body {
+  background-color: rgb(246, 222, 250);
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
 .edit-form {
   display: none;
+}
+
+.flex {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-full {
+  flex: 1;
+}
+
+.navbar {
+  display: flex;
+  flex: 0;
+  flex-direction: row;
+  justify-content: space-around;
 }
