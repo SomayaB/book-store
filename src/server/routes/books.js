@@ -5,7 +5,7 @@ router.get('/', (request, response) => {
   books.getAll()
   .then(books => {
     const bookLimit = 10
-    const pageCount = Math.floor(books.length/bookLimit)
+    const pageCount = Math.ceil(books.length/bookLimit)
     let currentPage = 1
     const booksGroupedByLimit = []
     let bookList = []
@@ -19,7 +19,7 @@ router.get('/', (request, response) => {
     }
 
     bookList = booksGroupedByLimit[+currentPage - 1]
-
+    console.log('pagecount', pageCount);
     response.render('books/index', {
       books: bookList,
       bookLimit: bookLimit,
