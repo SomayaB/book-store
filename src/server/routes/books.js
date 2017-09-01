@@ -19,7 +19,6 @@ router.get('/', (request, response) => {
     }
 
     bookList = booksGroupedByLimit[+currentPage - 1]
-    console.log('pagecount', pageCount);
     response.render('books/index', {
       books: bookList,
       bookLimit: bookLimit,
