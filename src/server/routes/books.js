@@ -19,7 +19,6 @@ router.get('/', (request, response) => {
     }
 
     bookList = booksGroupedByLimit[+currentPage - 1]
-    console.log('pagecount', pageCount);
     response.render('books/index', {
       books: bookList,
       bookLimit: bookLimit,
@@ -46,7 +45,7 @@ router.post('/', (request, response) => {
     }
   })
   .catch(error => {
-    console.log(error);
+  next(error);
   });
 });
 
@@ -57,7 +56,7 @@ router.get('/search', (request, response) => {
     response.render('books/search', {matchingBooks});
   })
   .catch(error => {
-    console.log(error);
+    next(error);
   });
 });
 
@@ -69,7 +68,7 @@ router.get('/:bookId', (request, response) => {
     response.render(`books/show`, {book});
   })
   .catch(error => {
-    console.log(error);
+    next(error);
   });
 });
 
@@ -81,7 +80,7 @@ router.put('/:bookId', (request, response) => {
     response.redirect(`/books/${id}`);
   })
   .catch(error => {
-    console.log(error);
+    next(error);
   });
 });
 
@@ -92,7 +91,7 @@ router.delete('/:bookId', (request, response) => {
     response.redirect('/books');
   })
   .catch(error => {
-    console.log(error);
+    next(error);
   });
 });
 
