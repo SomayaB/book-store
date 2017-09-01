@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon src/server.js",
     "db:reset": "dropdb bookstore_development; createdb bookstore_development; psql bookstore_development < src/models/db/schema/schema.sql; psql bookstore_development < src/models/db/schema/load-data.sql",
     "test:db:reset": "dropdb bookstore_test; createdb bookstore_test; psql bookstore_test < src/models/db/schema/schema.sql; psql bookstore_test < src/models/db/schema/load-data.sql"
@@ -25,7 +25,8 @@
     "express": "^4.15.4",
     "method-override": "^2.3.9",
     "pg-promise": "^6.5.1",
-    "pug": "^2.0.0-rc.3"
+    "pug": "^2.0.0-rc.3",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.1",

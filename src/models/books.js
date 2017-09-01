@@ -1,7 +1,7 @@
 const db = require('./db/books');
 
-const add = (title, author, genre) => {
-  return db.add(title, author, genre);
+const add = (bookInfo) => {
+  return db.add(bookInfo);
 };
 
 const getAll = () => {
@@ -12,8 +12,8 @@ const getById = (bookInfo) => {
   return db.getById(bookInfo);
 };
 
-const update = (id, title, author, genre) => {
-  return db.update(id, title, author, genre);
+const update = (id, newBookInfo) => {
+  return db.update(id, newBookInfo);
 };
 
 const deleteById = (id) => {
