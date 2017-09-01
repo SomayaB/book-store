@@ -5,7 +5,9 @@ const add = (bookInfo) => {
     INSERT INTO book
       (title, author, genre)
     VALUES
-      ($1, $2, $3) RETURNING id
+      ($1, $2, $3)
+    RETURNING
+      *
       `, [bookInfo.title, bookInfo.author, bookInfo.genre])
     .catch(error => {
       console.error({message: 'add query failed',
